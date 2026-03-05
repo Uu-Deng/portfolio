@@ -1,0 +1,740 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>作品集首页 - 邓舒敏</title>
+    <!-- 使用 Tailwind CDN，方便直接预览 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          container: {
+            center: true,
+            padding: {
+              DEFAULT: "1rem", // 16px，满足移动端 padding 要求
+              sm: "1.5rem",
+              lg: "2rem",
+            },
+          },
+          extend: {
+            colors: {
+              brand: "#00D8C3",
+            },
+            fontFamily: {
+              sans: ["system-ui", "PingFang SC", "ui-sans-serif", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #000;
+        color: #fff;
+        overflow-x: hidden;
+      }
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "PingFang SC",
+          "Helvetica Neue", Arial, sans-serif;
+      }
+      /* 导航：固定顶部；向下滚动隐藏，向上滚动滑出；0.3s 平滑动画 */
+      #header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        transition: transform 0.3s ease-out;
+      }
+      #header.nav-hidden {
+        transform: translateY(-100%);
+      }
+
+      /* ===== 分割线：白色渐变（首尾 0%，中间 20%） ===== */
+      .divider-grad-h {
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.2) 50%,
+          rgba(255, 255, 255, 0) 100%
+        );
+      }
+      .divider-grad-v {
+        width: 1px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.2) 50%,
+          rgba(255, 255, 255, 0) 100%
+        );
+      }
+      .border-grad {
+        border-color: transparent;
+        border-image-slice: 1;
+        border-image-source: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.2) 50%,
+          rgba(255, 255, 255, 0) 100%
+        );
+      }
+
+      /* ===== 导航选中态：主题色 #00D8C3 ===== */
+      .nav-link {
+        transition: color 0.2s ease, opacity 0.2s ease;
+      }
+      .nav-link.is-active {
+        color: #00d8c3;
+      }
+      .nav-link.is-active:hover {
+        opacity: 0.95;
+      }
+    </style>
+  </head>
+  <body class="bg-black text-white">
+    <div class="min-h-screen flex flex-col">
+      <!-- Header：fixed 固定顶部，向上滚动时滑出 -->
+      <header
+        id="header"
+        class="z-30 bg-white/10 backdrop-blur-xl"
+        data-name="导航"
+        data-node-id="105:25325"
+        role="banner"
+      >
+        <div
+          class="container max-w-[1216px] flex h-[91px] items-center justify-between gap-4"
+        >
+          <div class="flex flex-wrap items-center gap-4 sm:gap-8">
+            <!-- Logo（Figma: logo 1） -->
+            <a
+              href="#hero"
+              class="relative h-7 w-[70px] shrink-0"
+              data-name="logo 1"
+              data-node-id="105:25322"
+            >
+              <img
+                src="https://www.figma.com/api/mcp/asset/01f413d2-ccba-4cec-aa82-a0f2a5e430df"
+                alt="Logo"
+                class="block h-full w-full object-contain object-left"
+              />
+            </a>
+            <!-- 装饰分隔（1–2pt 细线） -->
+            <div
+              class="hidden sm:block h-9 shrink-0 divider-grad-v"
+              data-node-id="110:14822"
+              aria-hidden="true"
+            ></div>
+            <!-- 导航菜单（Figma: 103:25293） -->
+            <nav
+              class="hidden sm:flex items-center gap-6 lg:gap-12 text-base text-white text-center whitespace-nowrap"
+              aria-label="主导航"
+              data-node-id="103:25293"
+            >
+              <a href="#hero" class="nav-link hover:opacity-80 transition-opacity" data-node-id="103:25291">首页</a>
+              <a href="#resume" class="nav-link hover:opacity-80 transition-opacity" data-node-id="103:25292">关于我</a>
+              <a href="#projects" class="nav-link hover:opacity-80 transition-opacity" data-node-id="103:25296">作品集</a>
+              <a href="#footer" class="nav-link hover:opacity-80 transition-opacity" data-node-id="103:25298">兴趣</a>
+              <a href="#footer" class="nav-link hover:opacity-80 transition-opacity" data-node-id="103:25300">其他</a>
+            </nav>
+          </div>
+
+          <!-- 联系方式按钮（Figma: 110:14873 / 105:25320） -->
+          <a
+            href="#footer"
+            class="flex h-12 w-[120px] shrink-0 items-center justify-center rounded-lg border border-white/50 bg-[#00d8c3] px-[13px] py-[14px] text-base font-medium text-white"
+            data-name="按钮"
+            data-node-id="110:14873"
+          >
+            <span data-node-id="105:25320">联系方式</span>
+          </a>
+        </div>
+      </header>
+
+      <main class="flex-1">
+        <!-- Hero：首页主视觉 -->
+        <section
+          id="hero"
+          class="relative min-h-[480px] sm:min-h-[560px] lg:min-h-[640px] border-b border-grad overflow-hidden"
+        >
+          <!-- 视频背景 -->
+          <div
+            aria-hidden="true"
+            class="pointer-events-none absolute inset-0 z-0"
+          >
+            <video
+              autoplay
+              muted
+              loop
+              playsinline
+              class="absolute inset-0 h-full w-full object-cover object-center"
+              src="images/Home_bg.mov"
+            ></video>
+          </div>
+          <!-- 视频底部渐隐遮罩：仅底部 80px，用于压住视频边缘并制造渐隐效果 -->
+          <div
+            aria-hidden="true"
+            class="pointer-events-none absolute inset-x-0 bottom-0 h-[80px] z-[1] bg-gradient-to-t from-black/90 to-transparent"
+          ></div>
+
+          <div
+            class="relative z-[2] container max-w-[1216px] pt-[161px] pb-12 sm:pt-[161px] sm:pb-16 lg:pt-[161px] lg:pb-24 flex flex-col gap-10"
+          >
+            <!-- 左侧主内容：与 Figma 首页主视觉对齐 -->
+            <div class="max-w-xl space-y-8">
+              <!-- 顶部 Hello 标签 -->
+              <div
+                class="inline-flex items-center gap-3 rounded-lg border border-white/15 bg-white/5 px-2 py-1 text-xs sm:text-sm"
+              >
+                <span
+                  class="inline-flex h-7 w-14 items-center justify-center rounded-md border border-white/25 bg-brand text-xs font-medium"
+                >
+                  Hello
+                </span>
+                <span class="font-medium">我是Sumin.D</span>
+              </div>
+
+              <!-- 2025 + 设计作品集 主标题（使用 Figma 导出图片还原字形） -->
+              <div class="space-y-2">
+                <div class="w-[calc(min(380px,82vw)*339/502)] sm:w-[calc(min(380px,48vw)*339/502)] lg:w-[calc(380px*339/502)] max-w-full">
+                  <img
+                    src="https://www.figma.com/api/mcp/asset/70c56a3f-3264-42c1-965b-789fa9f6aa97"
+                    alt="2025"
+                    class="block w-full object-contain"
+                    style="aspect-ratio: 339 / 73; height: auto;"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="w-[min(380px,82vw)] sm:w-[min(380px,48vw)] lg:w-[380px] max-w-full">
+                  <img
+                    src="https://www.figma.com/api/mcp/asset/1d381939-849b-4ec5-b4c0-fe1ffe100263"
+                    alt="设计作品集"
+                    class="block w-full object-contain"
+                    style="aspect-ratio: 502 / 88; height: auto;"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+
+              <!-- 副标题 -->
+              <p
+                class="max-w-md text-sm sm:text-base text-white/70 leading-relaxed"
+              >
+                专注智能硬件界面设计的 UI / HMI 设计师，擅长嵌入式屏显体验与设备交互落地。
+              </p>
+
+              <!-- CTA 按钮组 -->
+              <div class="flex flex-wrap items-center gap-4">
+                <a
+                  href="#resume"
+                  class="inline-flex items-center justify-center rounded-lg bg-white px-5 py-2.5 text-sm font-medium text-black"
+                >
+                  About me
+                </a>
+                <a
+                  href="#footer"
+                  class="inline-flex items-center justify-center rounded-lg border border-white/40 bg-white/10 px-5 py-2.5 text-sm font-medium text-white"
+                >
+                  联系方式
+                </a>
+              </div>
+            </div>
+
+            <!-- 底部品牌条：简化为一排占位块，保持响应式 -->
+            <div class="pb-2">
+              <div class="mb-4 w-40 divider-grad-h"></div>
+              <div class="flex gap-4 opacity-80">
+                <span class="h-7 w-24 rounded-full bg-white/10"></span>
+                <span class="h-7 w-24 rounded-full bg-white/10"></span>
+                <span class="h-7 w-24 rounded-full bg-white/10"></span>
+                <span class="h-7 w-24 rounded-full bg-white/10"></span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Resume：个人简介 -->
+        <section
+          id="resume"
+          class="border-b border-grad bg-gradient-to-b from-black via-slate-950 to-black"
+        >
+          <div
+            class="container max-w-[1216px] py-16 sm:py-20 lg:py-24 grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.2fr)] items-start"
+          >
+            <!-- 左侧：头像卡片 -->
+            <div class="flex justify-center lg:justify-start">
+              <div
+                class="relative w-full max-w-sm rounded-3xl border-2 border-white/15 bg-white/5 p-3"
+              >
+                <img
+                  src="images/deng.png"
+                  alt="用户头像"
+                  class="block aspect-[4/5] w-full rounded-2xl object-cover object-top"
+                  loading="lazy"
+                />
+                <div
+                  class="pointer-events-none absolute inset-0 rounded-3xl border border-white/5"
+                ></div>
+              </div>
+            </div>
+
+            <!-- 右侧：文字信息 -->
+            <div class="space-y-10">
+              <!-- 名字 & 标签 -->
+              <div class="space-y-4">
+                <div class="flex flex-wrap items-end gap-4">
+                  <h2
+                    class="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight"
+                  >
+                    邓舒敏
+                  </h2>
+                  <div class="flex flex-wrap gap-2">
+                    <span
+                      class="inline-flex items-center rounded-full bg-brand/80 px-3 py-1 text-xs sm:text-sm font-medium"
+                      >UI 设计</span
+                    >
+                    <span
+                      class="inline-flex items-center rounded-full bg-brand/80 px-3 py-1 text-xs sm:text-sm font-medium"
+                      >动效设计</span
+                    >
+                    <span
+                      class="inline-flex items-center rounded-full bg-brand/80 px-3 py-1 text-xs sm:text-sm font-medium"
+                      >AIGC 创意</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <!-- 基本信息 -->
+              <div class="space-y-3">
+                <h3 class="text-base font-semibold tracking-wide">基本信息</h3>
+                <div
+                  class="grid grid-cols-1 sm:grid-cols-2 gap-y-2 text-sm text-white/80"
+                >
+                  <div>
+                    <div>
+                      学历：
+                      <span class="text-white/60">本科</span>
+                    </div>
+                    <div>
+                      电话：
+                      <a href="tel:17369247657" class="text-white/60"
+                        >17369247657</a
+                      >
+                    </div>
+                  </div>
+                  <div>
+                    <div>
+                      专业：
+                      <span class="text-white/60">产品设计</span>
+                    </div>
+                    <div class="truncate">
+                      邮箱：
+                      <a
+                        href="mailto:dengsm77@gmail.com"
+                        class="text-white/60 break-all"
+                        >dengsm77@gmail.com</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 工作经历 -->
+              <div class="space-y-3">
+                <h3 class="text-base font-semibold tracking-wide">工作经历</h3>
+                <div class="space-y-2 text-sm text-white/80">
+                  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+                    <span class="sm:w-40">2022.06 - 至今</span>
+                    <span class="sm:flex-1 sm:text-right">上海良信电器股份有限公司</span>
+                  </div>
+                  <p class="text-xs sm:text-sm text-white/60 leading-relaxed">
+                    独立负责公司项目：所有智能中控屏 HMI、良信云居 App、智慧施工
+                    app &amp; web、温控器空气盒子等智能硬件的交互体验及全部页面设计。
+                    参与用户体验、改进视觉设计，制定项目整体设计风格与设计规范文档。
+                    在产品开发完成后，进行功能与视觉验收，并积极与开发配合，保障产品用户体验和设计质量。
+                  </p>
+                </div>
+              </div>
+
+              <!-- 技能 -->
+              <div class="space-y-3">
+                <h3 class="text-base font-semibold tracking-wide">技能</h3>
+                <div
+                  class="grid gap-6 sm:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] text-sm"
+                >
+                  <div class="space-y-2">
+                    <div class="text-xs text-white/60">软件</div>
+                    <div class="flex flex-wrap gap-2">
+                      <span
+                        class="rounded-full bg-white/10 px-3 py-1 text-xs text-white/80"
+                        >Figma</span
+                      >
+                      <span
+                        class="rounded-full bg-white/10 px-3 py-1 text-xs text-white/80"
+                        >Sketch</span
+                      >
+                      <span
+                        class="rounded-full bg-white/10 px-3 py-1 text-xs text-white/80"
+                        >Photoshop</span
+                      >
+                      <span
+                        class="rounded-full bg-white/10 px-3 py-1 text-xs text-white/80"
+                        >Illustrator</span
+                      >
+                      <span
+                        class="rounded-full bg-white/10 px-3 py-1 text-xs text-white/80"
+                        >After Effects</span
+                      >
+                      <span
+                        class="rounded-full bg-white/10 px-3 py-1 text-xs text-white/80"
+                        >Adobe XD</span
+                      >
+                    </div>
+                  </div>
+                  <div class="space-y-2">
+                    <div class="text-xs text-white/60">AIGC</div>
+                    <div class="flex flex-wrap gap-2">
+                      <span
+                        class="rounded-full bg-white/10 px-3 py-1 text-xs text-white/80"
+                        >Midjourney</span
+                      >
+                      <span
+                        class="rounded-full bg-white/10 px-3 py-1 text-xs text-white/80"
+                        >Stable Diffusion</span
+                      >
+                      <span
+                        class="rounded-full bg-white/10 px-3 py-1 text-xs text-white/80"
+                        >文生图 / 图生图</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Projects：项目展示 -->
+        <section id="projects" class="border-b border-grad">
+          <div class="container max-w-[1216px] py-16 sm:py-20 lg:py-24">
+            <div class="mb-10 sm:mb-12">
+              <h2
+                class="text-2xl sm:text-3xl font-semibold tracking-tight mb-3"
+              >
+                项目作品
+              </h2>
+              <p class="text-sm sm:text-base text-white/60 max-w-xl">
+                选取智能中控屏、智能家居 App 等代表性项目，以整页视觉和关键界面串联展示设计思路与落地效果。
+              </p>
+            </div>
+
+            <div class="space-y-10">
+              <!-- Project Card 1 -->
+              <article
+                class="bg-white/[0.04] border border-white/10 rounded-2xl shadow-lg overflow-hidden backdrop-blur"
+              >
+                <header
+                  class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-4 sm:px-6 py-4 border-b border-white/10 bg-white/5"
+                >
+                  <div>
+                    <h3 class="text-base sm:text-lg font-semibold">
+                      智能中控屏 HMI 设计
+                    </h3>
+                    <p class="text-xs sm:text-sm text-white/60">
+                      智能家居中控屏 · 统一视觉语言 · 多场景联动
+                    </p>
+                  </div>
+                  <div class="flex flex-wrap gap-2 text-xs text-white/70">
+                    <span
+                      class="rounded-full bg-white/10 px-2 py-1 border border-white/10"
+                      >Dashboard</span
+                    >
+                    <span
+                      class="rounded-full bg-white/10 px-2 py-1 border border-white/10"
+                      >暗色主题</span
+                    >
+                  </div>
+                </header>
+
+                <div class="bg-black">
+                  <!-- 纵向整页截图，桌面端 max-width 1216，移动端 padding 16 且图片 100% 宽 -->
+                  <div class="space-y-4 p-4 sm:p-6">
+                    <img
+                      src="https://www.figma.com/api/mcp/asset/70b34cbb-704e-4307-b6af-d9ae43834361"
+                      alt="智能中控屏 HMI 项目封面"
+                      class="block w-full h-auto rounded-xl border border-white/10"
+                      loading="lazy"
+                    />
+                    <img
+                      src="https://www.figma.com/api/mcp/asset/b8552e33-0e58-4c32-8d1f-9adb1cce0438"
+                      alt="智能中控屏 HMI 详情页 1"
+                      class="block w-full h-auto rounded-xl border border-white/10"
+                      loading="lazy"
+                    />
+                    <img
+                      src="https://www.figma.com/api/mcp/asset/0e685e8a-7b61-47a8-8f04-de585d6f55cf"
+                      alt="智能中控屏 HMI 详情页 2"
+                      class="block w-full h-auto rounded-xl border border-white/10"
+                      loading="lazy"
+                    />
+                    <img
+                      src="https://www.figma.com/api/mcp/asset/e09aa60e-8b24-4068-9a63-566022437fe4"
+                      alt="智能中控屏 HMI 详情页 3"
+                      class="block w-full h-auto rounded-xl border border-white/10"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+              </article>
+
+              <!-- Project Card 2（可根据后续项目替换文案与图片） -->
+              <article
+                class="bg-white/[0.04] border border-white/10 rounded-2xl shadow-lg overflow-hidden backdrop-blur"
+              >
+                <header
+                  class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-4 sm:px-6 py-4 border-b border-white/10 bg-white/5"
+                >
+                  <div>
+                    <h3 class="text-base sm:text-lg font-semibold">
+                      智能家居 App 设计
+                    </h3>
+                    <p class="text-xs sm:text-sm text-white/60">
+                      移动端控制终端 · 设备联动 · 远程控制
+                    </p>
+                  </div>
+                  <div class="flex flex-wrap gap-2 text-xs text-white/70">
+                    <span
+                      class="rounded-full bg-white/10 px-2 py-1 border border-white/10"
+                      >iOS / Android</span
+                    >
+                    <span
+                      class="rounded-full bg-white/10 px-2 py-1 border border-white/10"
+                      >智能家居</span
+                    >
+                  </div>
+                </header>
+
+                <div class="bg-black">
+                  <div class="space-y-4 p-4 sm:p-6">
+                    <img
+                      src="https://www.figma.com/api/mcp/asset/ed6a3fdb-7560-42b7-86e4-0e15db921c1a"
+                      alt="智能家居 App 预览 1"
+                      class="block w-full h-auto rounded-xl border border-white/10"
+                      loading="lazy"
+                    />
+                    <img
+                      src="https://www.figma.com/api/mcp/asset/45ea5623-adf4-4168-a735-86396bb07fc1"
+                      alt="智能家居 App 预览 2"
+                      class="block w-full h-auto rounded-xl border border-white/10"
+                      loading="lazy"
+                    />
+                    <img
+                      src="https://www.figma.com/api/mcp/asset/125c2cd5-547d-479e-9f1d-ee25e2442ab3"
+                      alt="智能家居 App 预览 3"
+                      class="block w-full h-auto rounded-xl border border-white/10"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- Footer：联系信息 -->
+      <footer id="footer" class="relative overflow-hidden bg-black pt-12 pb-8 sm:pt-16 sm:pb-10">
+        <!-- Footer 视频背景：与首页主视觉一致，Y 轴偏移 -540px -->
+        <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0">
+          <video
+            autoplay
+            muted
+            loop
+            playsinline
+            class="absolute inset-0 h-full w-full object-cover"
+            style="object-position: center -540px;"
+            src="images/Home_bg.mov"
+          ></video>
+        </div>
+
+        <!-- Footer 底部渐隐遮罩：仅底部 80px（更轻，视频可透出到版权行） -->
+        <div
+          aria-hidden="true"
+          class="pointer-events-none absolute inset-x-0 bottom-0 h-[80px] z-[1] bg-gradient-to-t from-black/60 to-transparent"
+        ></div>
+
+        <div class="relative z-[2] container max-w-[1216px]">
+          <div class="flex flex-col items-center gap-10 sm:gap-12 lg:flex-row lg:items-start lg:justify-between">
+            <!-- 左侧：品牌与文案 -->
+            <div class="w-full lg:flex-1 space-y-6 text-center lg:text-left flex flex-col items-center lg:items-start">
+              <div class="space-y-4 w-full flex flex-col items-center lg:items-start">
+                <div class="inline-flex flex-col gap-2 items-center lg:items-start">
+                  <a href="#hero" class="inline-flex h-7 w-[70px] items-center" aria-label="返回顶部">
+                    <img
+                      src="https://www.figma.com/api/mcp/asset/01f413d2-ccba-4cec-aa82-a0f2a5e430df"
+                      alt="DSM"
+                      class="block h-full w-full object-contain object-left"
+                      loading="lazy"
+                    />
+                  </a>
+                  <span class="w-40 divider-grad-h"></span>
+                </div>
+
+                <p class="text-sm sm:text-base text-white/70 leading-relaxed max-w-xl">
+                  非常感谢你的阅读🩵<br />
+                  期待与您在智能硬件与交互设计领域产生更多有趣的合作。
+                </p>
+
+                <!-- 邮箱条：520px，左右两端对齐；小屏居中堆叠 -->
+                <div
+                  class="w-full sm:w-[520px] max-w-full flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0 rounded-2xl border border-white/20 bg-white/5 px-4 py-3 sm:px-5 sm:py-3.5"
+                >
+                  <div class="w-full sm:w-auto sm:flex-1 text-sm text-white/80 break-all sm:truncate text-left">
+                    dengsm77@gmail.com
+                  </div>
+                  <a
+                    href="mailto:dengsm77@gmail.com"
+                    class="inline-flex items-center justify-center rounded-lg border-4 border-white/30 bg-brand px-4 py-2 text-sm font-semibold text-white whitespace-nowrap shrink-0"
+                  >
+                    发送邮件
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- 右侧：微信二维码 -->
+            <div class="w-full max-w-[220px] sm:max-w-[240px] lg:max-w-[170px] flex flex-col items-center gap-3">
+              <div class="rounded-2xl border border-white/20 bg-white/5 p-2 sm:p-2.5 overflow-hidden">
+                <div class="aspect-square w-full overflow-hidden rounded-xl bg-black/80">
+                  <img
+                    src="https://www.figma.com/api/mcp/asset/7cf92676-ea43-40d1-beee-d3ec44569f6d"
+                    alt="微信二维码"
+                    class="block w-full h-full object-cover scale-[1.35] translate-y-[-1%]"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+              <div class="text-center space-y-1">
+                <div class="text-sm font-medium text-white/80">微信联系</div>
+                <div class="text-[11px] sm:text-xs text-white/60">Scan to connect</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative z-[2] mt-10 border-t border-grad pt-4">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-white/60">
+              <div class="flex items-center gap-2">
+                <span>Copyright 2025 © 邓舒敏</span>
+                <span class="hidden sm:inline-block h-1 w-1 rounded-full bg-white/40"></span>
+                <span class="hidden sm:inline">Cease 2024~2025</span>
+              </div>
+              <div class="text-xs text-white/50">Designed in Figma · Built with HTML &amp; Tailwind CSS</div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      (function () {
+        var header = document.getElementById("header");
+        if (!header) return;
+
+        // ===== Header：向下滚隐藏，向上滚显示 =====
+        var lastScrollY = window.scrollY || 0;
+        function updateHeaderByScroll() {
+          var y = window.scrollY || 0;
+          // 在顶部附近始终显示
+          if (y <= 8) {
+            header.classList.remove("nav-hidden");
+            lastScrollY = y;
+            return;
+          }
+          if (y > lastScrollY + 2) header.classList.add("nav-hidden");
+          else if (y < lastScrollY - 2) header.classList.remove("nav-hidden");
+          lastScrollY = y;
+        }
+
+        // ===== 导航选中态：主题色 #00D8C3 =====
+        var navLinks = Array.prototype.slice.call(
+          document.querySelectorAll('header#header nav a[href^="#"]')
+        );
+
+        function setActiveByHash(hash) {
+          if (!hash) return;
+          navLinks.forEach(function (a) {
+            a.classList.toggle("is-active", a.getAttribute("href") === hash);
+          });
+        }
+
+        function setActiveByScroll() {
+          var headerH = header ? header.getBoundingClientRect().height : 0;
+          var y = (window.scrollY || 0) + headerH + 24;
+          var current = null;
+          ["#hero", "#resume", "#projects", "#footer"].forEach(function (id) {
+            var el = document.querySelector(id);
+            if (!el) return;
+            if (y >= el.offsetTop) current = id;
+          });
+          if (current) setActiveByHash(current);
+        }
+
+        // 点击立即高亮
+        navLinks.forEach(function (a) {
+          a.addEventListener("click", function () {
+            setActiveByHash(a.getAttribute("href"));
+          });
+        });
+
+        // 初始状态
+        if (location.hash) setActiveByHash(location.hash);
+        else setActiveByScroll();
+
+        window.addEventListener("hashchange", function () {
+          setActiveByHash(location.hash);
+        });
+
+        // ===== Scroll RAF 节流：同时更新 header + nav active =====
+        var ticking = false;
+        window.addEventListener(
+          "scroll",
+          function () {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(function () {
+              updateHeaderByScroll();
+              setActiveByScroll();
+              ticking = false;
+            });
+          },
+          { passive: true }
+        );
+
+        // ===== 交互：指针靠近顶部时，导航栏主动滑出 =====
+        var revealZone = 24; // px
+        var revealTicking = false;
+        window.addEventListener(
+          "mousemove",
+          function (e) {
+            if (e.clientY > revealZone) return;
+            if (revealTicking) return;
+            revealTicking = true;
+            requestAnimationFrame(function () {
+              header.classList.remove("nav-hidden");
+              revealTicking = false;
+            });
+          },
+          { passive: true }
+        );
+
+        // 首次刷新时也更新一次
+        updateHeaderByScroll();
+        setActiveByScroll();
+      })();
+    </script>
+  </body>
+</html>
