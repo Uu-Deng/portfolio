@@ -3,10 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>作品集首页 - 邓舒敏</title>
+    <title>邓舒敏｜UI/UX 作品集</title>
+    <link rel="icon" type="image/png" href="./images/favicon/1.png" />
+    <link rel="stylesheet" href="./style.css" />
     <!-- 使用 Tailwind CDN，方便直接预览 -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
     <script>
+      window.HERO_SHOWREEL_ENABLED = true;
+      window.SITE_LOADER_JSON_PATH = "./assets/loading.json";
+      
       tailwind.config = {
         theme: {
           container: {
@@ -19,7 +25,7 @@
           },
           extend: {
             colors: {
-              brand: "#00D8C3",
+              brand: "rgba(0,216,195,1)",
             },
             fontFamily: {
               sans: ["system-ui", "PingFang SC", "ui-sans-serif", "sans-serif"],
@@ -28,79 +34,22 @@
         },
       };
     </script>
-    <style>
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-        background: #000;
-        color: #fff;
-        overflow-x: hidden;
-      }
-      body {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "PingFang SC",
-          "Helvetica Neue", Arial, sans-serif;
-      }
-      /* 导航：固定顶部；向下滚动隐藏，向上滚动滑出；0.3s 平滑动画 */
-      #header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        transition: transform 0.3s ease-out;
-      }
-      #header.nav-hidden {
-        transform: translateY(-100%);
-      }
-
-      /* ===== 分割线：白色渐变（首尾 0%，中间 20%） ===== */
-      .divider-grad-h {
-        height: 1px;
-        background: linear-gradient(
-          90deg,
-          rgba(255, 255, 255, 0) 0%,
-          rgba(255, 255, 255, 0.2) 50%,
-          rgba(255, 255, 255, 0) 100%
-        );
-      }
-      .divider-grad-v {
-        width: 1px;
-        background: linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0) 0%,
-          rgba(255, 255, 255, 0.2) 50%,
-          rgba(255, 255, 255, 0) 100%
-        );
-      }
-      .border-grad {
-        border-color: transparent;
-        border-image-slice: 1;
-        border-image-source: linear-gradient(
-          90deg,
-          rgba(255, 255, 255, 0) 0%,
-          rgba(255, 255, 255, 0.2) 50%,
-          rgba(255, 255, 255, 0) 100%
-        );
-      }
-
-      /* ===== 导航选中态：主题色 #00D8C3 ===== */
-      .nav-link {
-        transition: color 0.2s ease, opacity 0.2s ease;
-      }
-      .nav-link.is-active {
-        color: #00d8c3;
-      }
-      .nav-link.is-active:hover {
-        opacity: 0.95;
-      }
-    </style>
+        <!-- 自定义样式已迁移至 ./style.css -->
   </head>
   <body class="bg-black text-white">
+    <!-- 页面加载动画容器 -->
+    <div id="page-loader" class="page-loader" aria-hidden="false">
+      <div class="page-loader__inner">
+        <div id="page-loader-lottie" class="page-loader__lottie" style="width: clamp(320px, 34vw, 520px); height: clamp(320px, 34vw, 520px);"></div>
+        <div class="page-loader__text">Loading</div>
+      </div>
+    </div>
+
     <div class="min-h-screen flex flex-col">
       <!-- Header：fixed 固定顶部，向上滚动时滑出 -->
       <header
         id="header"
-        class="z-30 bg-white/10 backdrop-blur-xl"
+        class="z-30 backdrop-blur-xl"
         data-name="导航"
         data-node-id="105:25325"
         role="banner"
@@ -117,7 +66,7 @@
               data-node-id="105:25322"
             >
               <img
-                src="https://www.figma.com/api/mcp/asset/01f413d2-ccba-4cec-aa82-a0f2a5e430df"
+                src="./images/home/logo 1.png"
                 alt="Logo"
                 class="block h-full w-full object-contain object-left"
               />
@@ -138,19 +87,20 @@
               <a href="#resume" class="nav-link hover:opacity-80 transition-opacity" data-node-id="103:25292">关于我</a>
               <a href="#projects" class="nav-link hover:opacity-80 transition-opacity" data-node-id="103:25296">作品集</a>
               <a href="#footer" class="nav-link hover:opacity-80 transition-opacity" data-node-id="103:25298">兴趣</a>
-              <a href="#footer" class="nav-link hover:opacity-80 transition-opacity" data-node-id="103:25300">其他</a>
+              <a href="#footer" class="nav-link hover:opacity-80 transition-opacity" data-node-id="103:25300">探索</a>
             </nav>
           </div>
 
-          <!-- 联系方式按钮（Figma: 110:14873 / 105:25320） -->
+          <!-- 简历下载按钮（Figma: 110:14873 / 105:25320） -->
           <a
-            href="#footer"
-            class="flex h-12 w-[120px] shrink-0 items-center justify-center rounded-lg border border-white/50 bg-[#00d8c3] px-[13px] py-[14px] text-base font-medium text-white"
-            data-name="按钮"
-            data-node-id="110:14873"
-          >
-            <span data-node-id="105:25320">联系方式</span>
-          </a>
+          href="./邓舒敏-智能硬件 UI : HMI 设计师.pdf"
+          download="邓舒敏-智能硬件 UI : HMI 设计师.pdf"
+          class="header-cta inline-flex h-12 items-center justify-center rounded-full px-7 text-sm font-semibold whitespace-nowrap"
+          data-name="按钮"
+          data-node-id="110:14873"
+        >
+          <span data-node-id="105:25320">简历下载</span>
+        </a>
         </div>
       </header>
 
@@ -158,7 +108,7 @@
         <!-- Hero：首页主视觉 -->
         <section
           id="hero"
-          class="relative min-h-[480px] sm:min-h-[560px] lg:min-h-[640px] border-b border-grad overflow-hidden"
+          class="relative min-h-[480px] sm:min-h-[560px] lg:min-h-[640px] pb-24 sm:pb-28 lg:pb-24 border-b border-grad overflow-hidden"
         >
           <!-- 视频背景 -->
           <div
@@ -166,13 +116,18 @@
             class="pointer-events-none absolute inset-0 z-0"
           >
             <video
+              id="hero-bg-video"
               autoplay
               muted
               loop
               playsinline
+              webkit-playsinline
+              preload="auto"
+              poster="./images/home/Home_bg_cover.jpg"
               class="absolute inset-0 h-full w-full object-cover object-center"
-              src="images/Home_bg.mov"
-            ></video>
+            >
+              <source src="./images/home/Home_bg.mp4" type="video/mp4" />
+            </video>
           </div>
           <!-- 视频底部渐隐遮罩：仅底部 80px，用于压住视频边缘并制造渐隐效果 -->
           <div
@@ -181,366 +136,323 @@
           ></div>
 
           <div
-            class="relative z-[2] container max-w-[1216px] pt-[161px] pb-12 sm:pt-[161px] sm:pb-16 lg:pt-[161px] lg:pb-24 flex flex-col gap-10"
+            class="relative z-[2] container max-w-[1216px] pt-[161px] pb-20 sm:pt-[161px] sm:pb-24 lg:pt-[161px] lg:pb-32 flex flex-col gap-10"
           >
-            <!-- 左侧主内容：与 Figma 首页主视觉对齐 -->
-            <div class="max-w-xl space-y-8">
-              <!-- 顶部 Hello 标签 -->
-              <div
-                class="inline-flex items-center gap-3 rounded-lg border border-white/15 bg-white/5 px-2 py-1 text-xs sm:text-sm"
-              >
-                <span
-                  class="inline-flex h-7 w-14 items-center justify-center rounded-md border border-white/25 bg-brand text-xs font-medium"
+            <div class="hero-layout">
+              <!-- 左侧主内容：与 Figma 首页主视觉对齐 -->
+              <div class="max-w-xl space-y-8">
+                <!-- 顶部 Hello 标签 -->
+                <div
+                  class="inline-flex items-center gap-3 rounded-lg border border-white/15 bg-white/5 px-2 py-1 text-xs sm:text-sm"
                 >
-                  Hello
-                </span>
-                <span class="font-medium">我是Sumin.D</span>
-              </div>
-
-              <!-- 2025 + 设计作品集 主标题（使用 Figma 导出图片还原字形） -->
-              <div class="space-y-2">
-                <div class="w-[calc(min(380px,82vw)*339/502)] sm:w-[calc(min(380px,48vw)*339/502)] lg:w-[calc(380px*339/502)] max-w-full">
+                  <span
+                    class="inline-flex h-7 w-14 items-center justify-center rounded-md border border-white/25 bg-brand text-xs font-medium"
+                  >
+                    Hello
+                  </span>
+                  <span class="font-medium">我是Sumin.D</span>
+                </div>
                   <img
-                    src="https://www.figma.com/api/mcp/asset/70c56a3f-3264-42c1-965b-789fa9f6aa97"
-                    alt="2025"
-                    class="block w-full object-contain"
-                    style="aspect-ratio: 339 / 73; height: auto;"
+                    src="./images/home/home.svg"
+                    alt="2025 设计作品集"
+                    class="block w-full max-w-[480px] sm:max-w-[550px] lg:max-w-[620px] object-contain"
                     loading="lazy"
                   />
                 </div>
-                <div class="w-[min(380px,82vw)] sm:w-[min(380px,48vw)] lg:w-[380px] max-w-full">
-                  <img
-                    src="https://www.figma.com/api/mcp/asset/1d381939-849b-4ec5-b4c0-fe1ffe100263"
-                    alt="设计作品集"
-                    class="block w-full object-contain"
-                    style="aspect-ratio: 502 / 88; height: auto;"
-                    loading="lazy"
-                  />
+
+                <!-- 副标题 -->
+                <p
+                  class="max-w-md text-sm sm:text-base text-white/70 leading-relaxed"
+                >
+                  专注智能硬件界面设计的 UI / HMI 设计师，擅长嵌入式屏显体验与设备交互落地。
+                </p>
+
+                <!-- CTA 按钮组 -->
+                <div class="flex flex-wrap items-center gap-4">
+                  <a
+                    href="#projects"
+                    class="inline-flex items-center justify-center rounded-lg bg-white px-5 py-2.5 text-sm font-medium text-black"
+                  >
+                    查看精选作品
+                  </a>
+                  <a
+                    href="#footer"
+                    class="inline-flex items-center justify-center rounded-lg border border-white/40 bg-white/10 px-5 py-2.5 text-sm font-medium text-white"
+                  >
+                    联系我
+                  </a>
                 </div>
               </div>
 
-              <!-- 副标题 -->
-              <p
-                class="max-w-md text-sm sm:text-base text-white/70 leading-relaxed"
-              >
-                专注智能硬件界面设计的 UI / HMI 设计师，擅长嵌入式屏显体验与设备交互落地。
-              </p>
-
-              <!-- CTA 按钮组 -->
-              <div class="flex flex-wrap items-center gap-4">
-                <a
-                  href="#resume"
-                  class="inline-flex items-center justify-center rounded-lg bg-white px-5 py-2.5 text-sm font-medium text-black"
-                >
-                  About me
-                </a>
-                <a
-                  href="#footer"
-                  class="inline-flex items-center justify-center rounded-lg border border-white/40 bg-white/10 px-5 py-2.5 text-sm font-medium text-white"
-                >
-                  联系方式
-                </a>
+              <!-- 右下角 Showreel -->
+              <div id="hero-showreel" class="hero-showreel-wrap" aria-label="Showreel">
+                <div class="hero-showreel-card" id="hero-showreel-trigger" role="button" tabindex="0" aria-label="打开 Showreel">
+                  <video
+                    id="hero-showreel-preview"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    class="hero-showreel-video"
+                    src="./images/home/Home_bg.mov"
+                  ></video>
+                  <span class="hero-showreel-play" aria-hidden="true"></span>
+                </div>
               </div>
+        <div id="showreel-modal" class="showreel-modal" aria-hidden="true">
+          <div id="showreel-dialog" class="showreel-dialog" role="dialog" aria-modal="true" aria-label="Showreel 播放器">
+            <div class="showreel-stage">
+              <button id="showreel-close" class="showreel-close" type="button" aria-label="关闭播放器">×</button>
+              <video
+                id="showreel-player"
+                playsinline
+                preload="metadata"
+                src="./images/home/Home_bg.mov"
+              ></video>
+            </div>
+            <div class="showreel-controls">
+              <button id="showreel-play-toggle" class="showreel-btn" type="button">播放</button>
+              <input id="showreel-progress" class="showreel-range showreel-progress" type="range" min="0" max="100" value="0" step="0.1" aria-label="播放进度" />
+              <div id="showreel-time" class="showreel-time">00:00 / 00:00</div>
+            </div>
+          </div>
+        </div>
             </div>
 
-            <!-- 底部品牌条：简化为一排占位块，保持响应式 -->
-            <div class="pb-2">
-              <div class="mb-4 w-40 divider-grad-h"></div>
-              <div class="flex gap-4 opacity-80">
-                <span class="h-7 w-24 rounded-full bg-white/10"></span>
-                <span class="h-7 w-24 rounded-full bg-white/10"></span>
-                <span class="h-7 w-24 rounded-full bg-white/10"></span>
-                <span class="h-7 w-24 rounded-full bg-white/10"></span>
-              </div>
-            </div>
           </div>
         </section>
 
-        <!-- Resume：个人简介 -->
+
+
+        <section id="projects" class="border-b border-grad bg-black">
+          <div class="container max-w-[1216px] py-16 sm:py-20 lg:py-24">
+            <div class="space-y-14">
+              <article id="project-hmi" class="project-anchor bg-white/[0.04] border border-white/10 rounded-2xl shadow-lg overflow-hidden backdrop-blur">
+                <div class="bg-black">
+                  <div class="project-stack">
+                    <img src="./images/project/1/0.jpg" alt="智能中控屏 HMI 项目封面" class="project-image" loading="lazy" />
+                    <img src="./images/project/1/1.jpg" alt="智能中控屏 HMI 详情页 1" class="project-image" loading="lazy" />
+                    <img src="./images/project/1/2.jpg" alt="智能中控屏 HMI 详情页 2" class="project-image" loading="lazy" />
+                    <img src="./images/project/1/3.jpg" alt="智能中控屏 HMI 详情页 3" class="project-image" loading="lazy" />
+                    <img src="./images/project/1/4.jpg" alt="智能中控屏 HMI 详情页 4" class="project-image" loading="lazy" />
+                    <img src="./images/project/1/5.jpg" alt="智能中控屏 HMI 详情页 5" class="project-image" loading="lazy" />
+                    <img src="./images/project/1/6.jpg" alt="智能中控屏 HMI 详情页 6" class="project-image" loading="lazy" />
+                    <img src="./images/project/1/7.jpg" alt="智能中控屏 HMI 详情页 7" class="project-image" loading="lazy" />
+                    <img src="./images/project/1/8.jpg" alt="智能中控屏 HMI 详情页 8" class="project-image" loading="lazy" />
+                    <img src="./images/project/1/9.jpg" alt="智能中控屏 HMI 详情页 5" class="project-image" loading="lazy" />
+                    <img src="./images/project/1/10.jpg" alt="智能中控屏 HMI 详情页 6" class="project-image" loading="lazy" />
+                    <img src="./images/project/1/11.jpg" alt="智能中控屏 HMI 详情页 7" class="project-image" loading="lazy" />
+                    <img src="./images/project/1/12.jpg" alt="智能中控屏 HMI 详情页 8" class="project-image" loading="lazy" />
+                    <img src="./images/project/1/13.jpg" alt="智能中控屏 HMI 详情页 6" class="project-image" loading="lazy" />
+                    <img src="./images/project/1/14.jpg" alt="智能中控屏 HMI 详情页 7" class="project-image" loading="lazy" />
+                    
+                  </div>
+                </div>
+              </article>
+
+              <article id="project-app" class="project-anchor bg-white/[0.04] border border-white/10 rounded-2xl shadow-lg overflow-hidden backdrop-blur">
+                <div class="bg-black">
+                  <div class="project-stack">
+                    <img src="./images/project/2/0.jpg" class="project-image" loading="lazy" />
+                    <img src="./images/project/2/1.jpg" class="project-image" loading="lazy" />
+                    <img src="./images/project/2/2.jpg" class="project-image" loading="lazy" />
+                    <img src="./images/project/2/3.jpg" class="project-image" loading="lazy" />
+                    <img src="./images/project/2/4.jpg" class="project-image" loading="lazy" />
+                    <img src="./images/project/2/5.jpg" class="project-image" loading="lazy" />
+                    <img src="./images/project/2/6.jpg" class="project-image" loading="lazy" />
+                    <img src="./images/project/2/7.jpg" class="project-image" loading="lazy" />
+                    <img src="./images/project/2/8.jpg" class="project-image" loading="lazy" />
+                  </div>
+                </div>
+              </article>
+
+              <article id="project-energy" class="project-anchor bg-white/[0.04] border border-white/10 rounded-2xl shadow-lg overflow-hidden backdrop-blur">
+                <div class="bg-black">
+                  <div class="project-stack">
+                    <img src="./images/project/3/0.png" class="project-image" loading="lazy" />
+                    <img src="./images/project/3/1.png" class="project-image" loading="lazy" />
+                    <img src="./images/project/3/2.png" class="project-image" loading="lazy" />
+                    <img src="./images/project/3/3.png" class="project-image" loading="lazy" />
+                    <img src="./images/project/3/4.png" class="project-image" loading="lazy" />
+                    <img src="./images/project/3/5.png" class="project-image" loading="lazy" />
+                    <img src="./images/project/3/6.png" class="project-image" loading="lazy" />
+                    <img src="./images/project/3/7.png" class="project-image" loading="lazy" />
+                    <img src="./images/project/3/8.png" class="project-image" loading="lazy" />
+                    <img src="./images/project/3/9.png" class="project-image" loading="lazy" />
+                    <img src="./images/project/3/10.png" class="project-image" loading="lazy" />
+                    <img src="./images/project/3/11.png" class="project-image" loading="lazy" />
+                    <img src="./images/project/3/12.png" class="project-image" loading="lazy" />
+                  </div>
+                </div>
+              </article>
+
+              <article id="project-construction" class="project-anchor bg-white/[0.04] border border-white/10 rounded-2xl shadow-lg overflow-hidden backdrop-blur">
+                <div class="bg-black">
+                  <div class="project-stack">
+                    <img src="./images/project/4/0.png" class="project-image" loading="lazy" />
+                    <img src="./images/project/4/1.png" class="project-image" loading="lazy" />
+                    <img src="./images/project/4/2.png" class="project-image" loading="lazy" />
+                    <img src="./images/project/4/3.png" class="project-image" loading="lazy" />
+                    <img src="./images/project/4/4.png" class="project-image" loading="lazy" />
+                    <img src="./images/project/4/5.png" class="project-image" loading="lazy" />
+                  </div>
+                </div>
+              </article>
+
+              <article id="project-construction" class="project-anchor bg-white/[0.04] border border-white/10 rounded-2xl shadow-lg overflow-hidden backdrop-blur">
+                <div class="bg-black">
+                  <div class="project-stack">
+                    <img src="./images/project/5/0.jpg" class="project-image" loading="lazy" />
+                    <img src="./images/project/5/1.jpg" class="project-image" loading="lazy" />
+                    <img src="./images/project/5/3.jpg" class="project-image" loading="lazy" />
+                    <img src="./images/project/5/4.jpg" class="project-image" loading="lazy" />
+                  </div>
+                </div>
+              </article>
+
+            </div>
+          </div>
+        </section>
+        <div id="project-bottom-nav" class="project-bottom-nav" aria-label="项目目录快捷导航">
+          <div class="project-bottom-nav__inner">
+            <a href="#project-hmi" class="project-bottom-nav__link" data-project-nav="#project-hmi">家居及中控HMI</a>
+            <a href="#project-app" class="project-bottom-nav__link" data-project-nav="#project-app">智能硬件设备</a>
+            <a href="#project-energy" class="project-bottom-nav__link" data-project-nav="#project-energy">智慧施工平台</a>
+            <a href="#project-construction" class="project-bottom-nav__link" data-project-nav="#project-construction">良信官网</a>
+          </div>
+        </div>
+        <!-- Resume：个人简介 (moved below projects) -->
         <section
           id="resume"
           class="border-b border-grad bg-gradient-to-b from-black via-slate-950 to-black"
         >
           <div
-            class="container max-w-[1216px] py-16 sm:py-20 lg:py-24 grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.2fr)] items-start"
+            class="container max-w-[1216px] py-16 sm:py-20 lg:py-24"
           >
-            <!-- 左侧：头像卡片 -->
-            <div class="flex justify-center lg:justify-start">
-              <div
-                class="relative w-full max-w-sm rounded-3xl border-2 border-white/15 bg-white/5 p-3"
-              >
-                <img
-                  src="images/deng.png"
-                  alt="用户头像"
-                  class="block aspect-[4/5] w-full rounded-2xl object-cover object-top"
-                  loading="lazy"
-                />
-                <div
-                  class="pointer-events-none absolute inset-0 rounded-3xl border border-white/5"
-                ></div>
-              </div>
-            </div>
-
-            <!-- 右侧：文字信息 -->
-            <div class="space-y-10">
-              <!-- 名字 & 标签 -->
-              <div class="space-y-4">
-                <div class="flex flex-wrap items-end gap-4">
-                  <h2
-                    class="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight"
-                  >
-                    邓舒敏
-                  </h2>
-                  <div class="flex flex-wrap gap-2">
-                    <span
-                      class="inline-flex items-center rounded-full bg-brand/80 px-3 py-1 text-xs sm:text-sm font-medium"
-                      >UI 设计</span
-                    >
-                    <span
-                      class="inline-flex items-center rounded-full bg-brand/80 px-3 py-1 text-xs sm:text-sm font-medium"
-                      >动效设计</span
-                    >
-                    <span
-                      class="inline-flex items-center rounded-full bg-brand/80 px-3 py-1 text-xs sm:text-sm font-medium"
-                      >AIGC 创意</span
-                    >
+            <div class="space-y-12">
+              <div class="grid gap-8 lg:grid-cols-[240px_minmax(0,1fr)] lg:items-start">
+                <div class="hidden lg:block">
+                  <div class="sticky top-28 rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-3 shadow-[0_24px_80px_rgba(0,0,0,0.24)] backdrop-blur-xl">
+                    <img
+                      src="./images/Resume/deng.png"
+                      alt="邓舒敏头像"
+                      class="block aspect-[4/5] w-full rounded-[22px] object-cover object-top"
+                      loading="lazy"
+                    />
                   </div>
                 </div>
-              </div>
 
-              <!-- 基本信息 -->
-              <div class="space-y-3">
-                <h3 class="text-base font-semibold tracking-wide">基本信息</h3>
-                <div
-                  class="grid grid-cols-1 sm:grid-cols-2 gap-y-2 text-sm text-white/80"
-                >
-                  <div>
-                    <div>
-                      学历：
-                      <span class="text-white/60">本科</span>
-                    </div>
-                    <div>
-                      电话：
-                      <a href="tel:17369247657" class="text-white/60"
-                        >17369247657</a
-                      >
-                    </div>
-                  </div>
-                  <div>
-                    <div>
-                      专业：
-                      <span class="text-white/60">产品设计</span>
-                    </div>
-                    <div class="truncate">
-                      邮箱：
-                      <a
-                        href="mailto:dengsm77@gmail.com"
-                        class="text-white/60 break-all"
-                        >dengsm77@gmail.com</a
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 工作经历 -->
-              <div class="space-y-3">
-                <h3 class="text-base font-semibold tracking-wide">工作经历</h3>
-                <div class="space-y-2 text-sm text-white/80">
-                  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
-                    <span class="sm:w-40">2022.06 - 至今</span>
-                    <span class="sm:flex-1 sm:text-right">上海良信电器股份有限公司</span>
-                  </div>
-                  <p class="text-xs sm:text-sm text-white/60 leading-relaxed">
-                    独立负责公司项目：所有智能中控屏 HMI、良信云居 App、智慧施工
-                    app &amp; web、温控器空气盒子等智能硬件的交互体验及全部页面设计。
-                    参与用户体验、改进视觉设计，制定项目整体设计风格与设计规范文档。
-                    在产品开发完成后，进行功能与视觉验收，并积极与开发配合，保障产品用户体验和设计质量。
-                  </p>
-                </div>
-              </div>
-
-              <!-- 技能 -->
-              <div class="space-y-3">
-                <h3 class="text-base font-semibold tracking-wide">技能</h3>
-                <div
-                  class="grid gap-6 sm:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] text-sm"
-                >
-                  <div class="space-y-2">
-                    <div class="text-xs text-white/60">软件</div>
-                    <div class="flex flex-wrap gap-2">
-                      <span
-                        class="rounded-full bg-white/10 px-3 py-1 text-xs text-white/80"
-                        >Figma</span
-                      >
-                      <span
-                        class="rounded-full bg-white/10 px-3 py-1 text-xs text-white/80"
-                        >Sketch</span
-                      >
-                      <span
-                        class="rounded-full bg-white/10 px-3 py-1 text-xs text-white/80"
-                        >Photoshop</span
-                      >
-                      <span
-                        class="rounded-full bg-white/10 px-3 py-1 text-xs text-white/80"
-                        >Illustrator</span
-                      >
-                      <span
-                        class="rounded-full bg-white/10 px-3 py-1 text-xs text-white/80"
-                        >After Effects</span
-                      >
-                      <span
-                        class="rounded-full bg-white/10 px-3 py-1 text-xs text-white/80"
-                        >Adobe XD</span
-                      >
-                    </div>
-                  </div>
-                  <div class="space-y-2">
-                    <div class="text-xs text-white/60">AIGC</div>
-                    <div class="flex flex-wrap gap-2">
-                      <span
-                        class="rounded-full bg-white/10 px-3 py-1 text-xs text-white/80"
-                        >Midjourney</span
-                      >
-                      <span
-                        class="rounded-full bg-white/10 px-3 py-1 text-xs text-white/80"
-                        >Stable Diffusion</span
-                      >
-                      <span
-                        class="rounded-full bg-white/10 px-3 py-1 text-xs text-white/80"
-                        >文生图 / 图生图</span
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Projects：项目展示 -->
-        <section id="projects" class="border-b border-grad">
-          <div class="container max-w-[1216px] py-16 sm:py-20 lg:py-24">
-            <div class="mb-10 sm:mb-12">
-              <h2
-                class="text-2xl sm:text-3xl font-semibold tracking-tight mb-3"
-              >
-                项目作品
-              </h2>
-              <p class="text-sm sm:text-base text-white/60 max-w-xl">
-                选取智能中控屏、智能家居 App 等代表性项目，以整页视觉和关键界面串联展示设计思路与落地效果。
-              </p>
-            </div>
-
-            <div class="space-y-10">
-              <!-- Project Card 1 -->
-              <article
-                class="bg-white/[0.04] border border-white/10 rounded-2xl shadow-lg overflow-hidden backdrop-blur"
-              >
-                <header
-                  class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-4 sm:px-6 py-4 border-b border-white/10 bg-white/5"
-                >
-                  <div>
-                    <h3 class="text-base sm:text-lg font-semibold">
-                      智能中控屏 HMI 设计
-                    </h3>
-                    <p class="text-xs sm:text-sm text-white/60">
-                      智能家居中控屏 · 统一视觉语言 · 多场景联动
+                <div class="space-y-7">
+                  <div class="space-y-4">
+                    <span class="inline-flex items-center rounded-full border border-brand/28 bg-brand/8 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.26em] text-brand/90">About Me</span>
+                    <h2 class="max-w-3xl text-[34px] sm:text-[46px] lg:text-[58px] font-semibold tracking-[-0.04em] leading-[1.02] text-white">
+                      让复杂的智能硬件体验，<br class="hidden sm:block" />变得清晰、克制、有秩序。
+                    </h2>
+                    <p class="max-w-2xl text-[16px] sm:text-[18px] leading-8 text-white/78">
+                      我是邓舒敏，专注智能硬件与嵌入式界面体验设计，长期负责中控屏 HMI、智能家居 App、施工平台与配套硬件设备的界面设计与体验落地。
                     </p>
                   </div>
-                  <div class="flex flex-wrap gap-2 text-xs text-white/70">
-                    <span
-                      class="rounded-full bg-white/10 px-2 py-1 border border-white/10"
-                      >Dashboard</span
-                    >
-                    <span
-                      class="rounded-full bg-white/10 px-2 py-1 border border-white/10"
-                      >暗色主题</span
-                    >
-                  </div>
-                </header>
 
-                <div class="bg-black">
-                  <!-- 纵向整页截图，桌面端 max-width 1216，移动端 padding 16 且图片 100% 宽 -->
-                  <div class="space-y-4 p-4 sm:p-6">
-                    <img
-                      src="https://www.figma.com/api/mcp/asset/70b34cbb-704e-4307-b6af-d9ae43834361"
-                      alt="智能中控屏 HMI 项目封面"
-                      class="block w-full h-auto rounded-xl border border-white/10"
-                      loading="lazy"
-                    />
-                    <img
-                      src="https://www.figma.com/api/mcp/asset/b8552e33-0e58-4c32-8d1f-9adb1cce0438"
-                      alt="智能中控屏 HMI 详情页 1"
-                      class="block w-full h-auto rounded-xl border border-white/10"
-                      loading="lazy"
-                    />
-                    <img
-                      src="https://www.figma.com/api/mcp/asset/0e685e8a-7b61-47a8-8f04-de585d6f55cf"
-                      alt="智能中控屏 HMI 详情页 2"
-                      class="block w-full h-auto rounded-xl border border-white/10"
-                      loading="lazy"
-                    />
-                    <img
-                      src="https://www.figma.com/api/mcp/asset/e09aa60e-8b24-4068-9a63-566022437fe4"
-                      alt="智能中控屏 HMI 详情页 3"
-                      class="block w-full h-auto rounded-xl border border-white/10"
-                      loading="lazy"
-                    />
+                  <div class="flex flex-wrap gap-2.5">
+                    <span class="inline-flex items-center rounded-full border border-white/12 bg-white/[0.05] px-3 py-1.5 text-[13px] font-medium text-white/86">UI 设计</span>
+                    <span class="inline-flex items-center rounded-full border border-white/12 bg-white/[0.05] px-3 py-1.5 text-[13px] font-medium text-white/86">HMI 体验</span>
+                    <span class="inline-flex items-center rounded-full border border-white/12 bg-white/[0.05] px-3 py-1.5 text-[13px] font-medium text-white/86">智能硬件</span>
+                    <span class="inline-flex items-center rounded-full border border-white/12 bg-white/[0.05] px-3 py-1.5 text-[13px] font-medium text-white/86">AIGC 创意</span>
                   </div>
                 </div>
-              </article>
+              </div>
 
-              <!-- Project Card 2（可根据后续项目替换文案与图片） -->
-              <article
-                class="bg-white/[0.04] border border-white/10 rounded-2xl shadow-lg overflow-hidden backdrop-blur"
-              >
-                <header
-                  class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-4 sm:px-6 py-4 border-b border-white/10 bg-white/5"
-                >
-                  <div>
-                    <h3 class="text-base sm:text-lg font-semibold">
-                      智能家居 App 设计
-                    </h3>
-                    <p class="text-xs sm:text-sm text-white/60">
-                      移动端控制终端 · 设备联动 · 远程控制
-                    </p>
-                  </div>
-                  <div class="flex flex-wrap gap-2 text-xs text-white/70">
-                    <span
-                      class="rounded-full bg-white/10 px-2 py-1 border border-white/10"
-                      >iOS / Android</span
-                    >
-                    <span
-                      class="rounded-full bg-white/10 px-2 py-1 border border-white/10"
-                      >智能家居</span
-                    >
-                  </div>
-                </header>
+              <div class="space-y-8 lg:pl-[272px]">
 
-                <div class="bg-black">
-                  <div class="space-y-4 p-4 sm:p-6">
-                    <img
-                      src="https://www.figma.com/api/mcp/asset/ed6a3fdb-7560-42b7-86e4-0e15db921c1a"
-                      alt="智能家居 App 预览 1"
-                      class="block w-full h-auto rounded-xl border border-white/10"
-                      loading="lazy"
-                    />
-                    <img
-                      src="https://www.figma.com/api/mcp/asset/45ea5623-adf4-4168-a735-86396bb07fc1"
-                      alt="智能家居 App 预览 2"
-                      class="block w-full h-auto rounded-xl border border-white/10"
-                      loading="lazy"
-                    />
-                    <img
-                      src="https://www.figma.com/api/mcp/asset/125c2cd5-547d-479e-9f1d-ee25e2442ab3"
-                      alt="智能家居 App 预览 3"
-                      class="block w-full h-auto rounded-xl border border-white/10"
-                      loading="lazy"
-                    />
+                <div class="space-y-8">
+                  <div class="grid gap-5 sm:grid-cols-2">
+                    <div class="rounded-[30px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.03))] p-6 sm:p-7 shadow-[0_24px_80px_rgba(0,0,0,0.24)] backdrop-blur-xl">
+                      <div class="space-y-6">
+                        <div class="space-y-2">
+                          <div class="text-[11px] uppercase tracking-[0.24em] text-white/40">Core Info</div>
+                          <h3 class="text-[24px] font-semibold tracking-tight text-white">核心信息</h3>
+                        </div>
+                        <div class="space-y-4">
+                          <div class="pb-4 border-b border-white/8">
+                            <div class="text-[12px] uppercase tracking-[0.18em] text-white/36">Name</div>
+                            <div class="mt-1.5 text-[16px] leading-7 text-white/90">邓舒敏 · UI / HMI Designer</div>
+                          </div>
+                          <div class="pb-4 border-b border-white/8">
+                            <div class="text-[12px] uppercase tracking-[0.18em] text-white/36">Education</div>
+                            <div class="mt-1.5 text-[16px] leading-7 text-white/90">本科 · 产品设计</div>
+                          </div>
+                          <div>
+                            <div class="text-[12px] uppercase tracking-[0.18em] text-white/36">Company</div>
+                            <div class="mt-1.5 text-[16px] leading-7 text-white/90">上海良信电器股份有限公司</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="rounded-[30px] border border-brand/20 bg-[linear-gradient(180deg,rgba(0,216,195,0.14),rgba(7,15,18,0.62))] p-6 sm:p-7 shadow-[0_24px_80px_rgba(0,0,0,0.24)] backdrop-blur-xl">
+                      <div class="space-y-6">
+                        <div class="space-y-2">
+                          <div class="text-[11px] uppercase tracking-[0.24em] text-brand/75">Capability</div>
+                          <h3 class="text-[24px] font-semibold tracking-tight text-white">我能做什么</h3>
+                        </div>
+                        <div class="space-y-4 text-[16px] leading-7 text-white/88">
+                          <div>多尺寸屏显 UI 与 HMI 体验设计</div>
+                          <div>设备控制、场景联动与状态表达设计</div>
+                          <div>动效表达、视觉规范与设计落地协同</div>
+                          <div>借助 AIGC 提升创意探索与方案输出效率</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="space-y-4">
+                    <h3 class="text-base font-semibold tracking-wide text-white/92">技能</h3>
+                    <div class="skills-wrap flex flex-col gap-6 sm:flex-row sm:items-start w-full">
+                      <div class="skill-group" style="min-width: 260px;">
+                        <div class="skill-label">软件</div>
+                        <div class="skill-icons" aria-label="软件技能">
+                          <span class="skill-icon" title="Figma">
+                            <img alt="Figma" src="./images/Resume/skill/figma.png" />
+                          </span>
+                          <span class="skill-icon" title="Sketch">
+                            <img alt="Sketch" src="./images/Resume/skill/Sketch.png" />
+                          </span>
+                          <span class="skill-icon" title="Photoshop">
+                            <img alt="Photoshop" src="./images/Resume/skill/Ps.png" />
+                          </span>
+                          <span class="skill-icon" title="Illustrator">
+                            <img alt="Illustrator" src="./images/Resume/skill/Ai.png" />
+                          </span>
+                          <span class="skill-icon" title="After Effects">
+                            <img alt="After Effects" src="./images/Resume/skill/Ae.png" />
+                          </span>
+                          <span class="skill-icon" title="Adobe XD">
+                            <img alt="Adobe XD" src="./images/Resume/skill/Xd.png" />
+                          </span>
+                        </div>
+                      </div>
+
+                      <div class="skill-group" style="min-width: 220px;">
+                        <div class="skill-label">AIGC</div>
+                        <div class="skill-icons" aria-label="AIGC 技能">
+                          <span class="skill-icon" style="background:#FFFFFF;border-radius:8px;padding:4px;" title="Midjourney">
+                            <img alt="Midjourney" src="./images/Resume/skill/Midjourney.png" />
+                          </span>
+                          <span class="skill-icon" title="ChatGPT">
+                            <img alt="ChatGPT" src="./images/Resume/skill/chatgpt.png" />
+                          </span>
+                          <span class="skill-icon" title="DeepSeek">
+                            <img alt="DeepSeek" src="./images/Resume/skill/DeepSeek.png" />
+                          </span>
+                          <span class="skill-icon" title="即梦">
+                            <img alt="即梦" src="./images/Resume/skill/JImen.png" />
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </article>
+              </div>
             </div>
           </div>
         </section>
@@ -551,14 +463,19 @@
         <!-- Footer 视频背景：与首页主视觉一致，Y 轴偏移 -540px -->
         <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0">
           <video
+            id="footer-bg-video"
             autoplay
             muted
             loop
             playsinline
+            webkit-playsinline
+            preload="auto"
+            poster="./images/home/Home_bg_cover.jpg"
             class="absolute inset-0 h-full w-full object-cover"
             style="object-position: center -540px;"
-            src="images/Home_bg.mov"
-          ></video>
+          >
+            <source src="./images/home/Home_bg.mp4" type="video/mp4" />
+          </video>
         </div>
 
         <!-- Footer 底部渐隐遮罩：仅底部 80px（更轻，视频可透出到版权行） -->
@@ -575,7 +492,7 @@
                 <div class="inline-flex flex-col gap-2 items-center lg:items-start">
                   <a href="#hero" class="inline-flex h-7 w-[70px] items-center" aria-label="返回顶部">
                     <img
-                      src="https://www.figma.com/api/mcp/asset/01f413d2-ccba-4cec-aa82-a0f2a5e430df"
+                      src="./images/home/logo 1.png"
                       alt="DSM"
                       class="block h-full w-full object-contain object-left"
                       loading="lazy"
@@ -606,33 +523,32 @@
               </div>
             </div>
 
-            <!-- 右侧：微信二维码 -->
-            <div class="w-full max-w-[220px] sm:max-w-[240px] lg:max-w-[170px] flex flex-col items-center gap-3">
-              <div class="rounded-2xl border border-white/20 bg-white/5 p-2 sm:p-2.5 overflow-hidden">
-                <div class="aspect-square w-full overflow-hidden rounded-xl bg-black/80">
-                  <img
-                    src="https://www.figma.com/api/mcp/asset/7cf92676-ea43-40d1-beee-d3ec44569f6d"
-                    alt="微信二维码"
-                    class="block w-full h-full object-cover scale-[1.35] translate-y-[-1%]"
-                    loading="lazy"
-                  />
+            <div class="w-full max-w-[160px] sm:max-w-[200px] lg:max-w-[200px] flex flex-col items-center lg:items-end gap-4">
+              <div class="w-full rounded-[30px] border border-white/12 bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.03))] p-3 shadow-[0_24px_90px_rgba(0,0,0,0.32)] backdrop-blur-xl">
+                <div class="rounded-[24px] border border-white/10 bg-black/45 p-3">
+                  <div class="aspect-square w-full rounded-[18px] bg-white overflow-hidden flex items-center justify-center">
+                    <img
+                      id="wechat-qr-image"
+                      src="./images/footer/wechat-qr.png"
+                      alt="微信二维码"
+                      class="block w-full h-full object-contain"
+                      loading="lazy"
+                    />
+                  </div>
                 </div>
               </div>
-              <div class="text-center space-y-1">
-                <div class="text-sm font-medium text-white/80">微信联系</div>
-                <div class="text-[11px] sm:text-xs text-white/60">Scan to connect</div>
-              </div>
+
             </div>
           </div>
 
           <div class="relative z-[2] mt-10 border-t border-grad pt-4">
             <div class="flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-white/60">
               <div class="flex items-center gap-2">
-                <span>Copyright 2025 © 邓舒敏</span>
+                <span>Copyright 2026 © 邓舒敏</span>
                 <span class="hidden sm:inline-block h-1 w-1 rounded-full bg-white/40"></span>
-                <span class="hidden sm:inline">Cease 2024~2025</span>
+                <span class="hidden sm:inline">Cease 2022~2026</span>
               </div>
-              <div class="text-xs text-white/50">Designed in Figma · Built with HTML &amp; Tailwind CSS</div>
+              <div class="text-xs text-white/50">Designed in Figma · Built with HTML & amp; Tailwind CSS</div>
             </div>
           </div>
         </div>
@@ -641,100 +557,46 @@
 
     <script>
       (function () {
-        var header = document.getElementById("header");
-        if (!header) return;
+        function ensureVideoPlayback(video) {
+          if (!video) return;
 
-        // ===== Header：向下滚隐藏，向上滚显示 =====
-        var lastScrollY = window.scrollY || 0;
-        function updateHeaderByScroll() {
-          var y = window.scrollY || 0;
-          // 在顶部附近始终显示
-          if (y <= 8) {
-            header.classList.remove("nav-hidden");
-            lastScrollY = y;
-            return;
+          video.muted = true;
+          video.defaultMuted = true;
+          video.setAttribute('muted', '');
+          video.setAttribute('playsinline', '');
+          video.setAttribute('webkit-playsinline', '');
+          video.setAttribute('autoplay', '');
+          video.setAttribute('loop', '');
+
+          var tryPlay = function () {
+            var playPromise = video.play();
+            if (playPromise && typeof playPromise.catch === 'function') {
+              playPromise.catch(function () {});
+            }
+          };
+
+          if (video.readyState >= 2) {
+            tryPlay();
+          } else {
+            video.addEventListener('loadeddata', tryPlay, { once: true });
           }
-          if (y > lastScrollY + 2) header.classList.add("nav-hidden");
-          else if (y < lastScrollY - 2) header.classList.remove("nav-hidden");
-          lastScrollY = y;
+
+          video.addEventListener('canplay', tryPlay);
+          document.addEventListener('visibilitychange', function () {
+            if (!document.hidden) tryPlay();
+          });
+          window.addEventListener('pageshow', tryPlay);
+          document.addEventListener('touchstart', tryPlay, { passive: true, once: true });
         }
 
-        // ===== 导航选中态：主题色 #00D8C3 =====
-        var navLinks = Array.prototype.slice.call(
-          document.querySelectorAll('header#header nav a[href^="#"]')
-        );
-
-        function setActiveByHash(hash) {
-          if (!hash) return;
-          navLinks.forEach(function (a) {
-            a.classList.toggle("is-active", a.getAttribute("href") === hash);
-          });
-        }
-
-        function setActiveByScroll() {
-          var headerH = header ? header.getBoundingClientRect().height : 0;
-          var y = (window.scrollY || 0) + headerH + 24;
-          var current = null;
-          ["#hero", "#resume", "#projects", "#footer"].forEach(function (id) {
-            var el = document.querySelector(id);
-            if (!el) return;
-            if (y >= el.offsetTop) current = id;
-          });
-          if (current) setActiveByHash(current);
-        }
-
-        // 点击立即高亮
-        navLinks.forEach(function (a) {
-          a.addEventListener("click", function () {
-            setActiveByHash(a.getAttribute("href"));
-          });
+        document.addEventListener('DOMContentLoaded', function () {
+          ensureVideoPlayback(document.getElementById('hero-bg-video'));
+          ensureVideoPlayback(document.getElementById('footer-bg-video'));
         });
-
-        // 初始状态
-        if (location.hash) setActiveByHash(location.hash);
-        else setActiveByScroll();
-
-        window.addEventListener("hashchange", function () {
-          setActiveByHash(location.hash);
-        });
-
-        // ===== Scroll RAF 节流：同时更新 header + nav active =====
-        var ticking = false;
-        window.addEventListener(
-          "scroll",
-          function () {
-            if (ticking) return;
-            ticking = true;
-            requestAnimationFrame(function () {
-              updateHeaderByScroll();
-              setActiveByScroll();
-              ticking = false;
-            });
-          },
-          { passive: true }
-        );
-
-        // ===== 交互：指针靠近顶部时，导航栏主动滑出 =====
-        var revealZone = 24; // px
-        var revealTicking = false;
-        window.addEventListener(
-          "mousemove",
-          function (e) {
-            if (e.clientY > revealZone) return;
-            if (revealTicking) return;
-            revealTicking = true;
-            requestAnimationFrame(function () {
-              header.classList.remove("nav-hidden");
-              revealTicking = false;
-            });
-          },
-          { passive: true }
-        );
-
-        // 首次刷新时也更新一次
-        updateHeaderByScroll();
-        setActiveByScroll();
       })();
     </script>
+    <script src="./main.js"></script>
+
   </body>
 </html>
+ 
